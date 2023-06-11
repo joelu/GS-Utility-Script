@@ -2,9 +2,9 @@
 $updates = Get-WindowsUpdate -NotCategory "Drivers"
 # If there are updates available, install them
 if ($updates.Count -gt 0) {
-    Install-WindowsUpdate -NotCategory "Drivers" };
+    Install-WindowsUpdate -NotCategory "Drivers" -guiet -norestart };
 # Run DISM with /online /cleanup-image /restorehealth command
-$dismandargs = "/online /cleanup-image /restorehealth"
+$dismandargs = "/online /cleanup-image /restorehealth /Quiet /NoRestart"
 Start-Process -FilePath "C:\Windows\System32\dism.exe" -ArgumentList $dismandargs -Verb RunAs -Wait | Out-Null;
 # Run SFC /scannow command
 Start-Process -FilePath "sfc.exe" -ArgumentList "/scannow" -Verb RunAs -Wait | Out-Null;
