@@ -1,5 +1,5 @@
 # Check for available updates
-$updates = Get-WindowsUpdate -NotCategory "Drivers"
+$updates = Get-WindowsUpdate -NotCategory "Drivers","FeaturePacks" -AcceptAll
 # If there are updates available, install them
 if ($updates.Count -gt 0) {
     Install-WindowsUpdate -NotCategory "Drivers" -guiet -norestart };
