@@ -3,7 +3,7 @@ If (-Not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
     $Arguments = "& '" + $MyInvocation.MyCommand.Definition + "'"
     Start-Process Powershell -Verb RunAs -ArgumentList $Arguments
     Break
-}
+};
 # Check for available updates
 $updates = Get-WindowsUpdate -NotCategory "Drivers","FeaturePacks"
 # If there are updates available, install them
