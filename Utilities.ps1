@@ -1,8 +1,15 @@
+#Prompt for elevation
+If (-Not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
+    $Arguments = "& '" + $MyInvocation.MyCommand.Definition + "'"
+    Start-Process Powershell -Verb RunAs -ArgumentList $Arguments
+    Break
+}
 # Check for available updates
 $updates = Get-WindowsUpdate -NotCategory "Drivers","FeaturePacks"
 # If there are updates available, install them
 if ($updates.Count -gt 0) {
-    Install-WindowsUpdate -NotCategory "Drivers","FeaturePacks" -AcceptAll};
+    Install-WindowsUpdate -NotCategory "Drivers","FeaturePacks" -AcceptAll
+	};
 # Run DISM with /online /cleanup-image /restorehealth command
 $dismandargs = "/online /cleanup-image /restorehealth /NoRestart"
 Start-Process -FilePath "C:\Windows\System32\dism.exe" -ArgumentList $dismandargs -Verb RunAs -Wait | Out-Null;
