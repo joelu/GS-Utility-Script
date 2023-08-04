@@ -16,6 +16,7 @@ Start-Process -FilePath "C:\Windows\System32\dism.exe" -ArgumentList $dismandarg
 # Run SFC /scannow command
 Start-Process -FilePath "sfc.exe" -ArgumentList "/scannow" -Verb RunAs -Wait;
 # Create a restore point
-Checkpoint-Computer -Description "My Restore Point" -restorepointtype Modify_Settings;
+$DateStr = Get-Date -Format "MM-dd-yyyy"
+Checkpoint-Computer -Description $DateStr -restorepointtype Modify_Settings;
 $tempdir = [System.IO.Path]::GetTempPath();
  Set-ExecutionPolicy -ExecutionPolicy Restricted -Scope LocalMachine -Force
