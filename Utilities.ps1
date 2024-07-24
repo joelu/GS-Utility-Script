@@ -5,8 +5,8 @@ If (-Not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
     Break
 };
 # Check for available updates
-#$updates = Get-WindowsUpdate -NotCategory "Drivers","FeaturePacks"
-$updates = Get-WindowsUpdate -MicrosoftUpdate -Category "Security Updates" -AcceptAll
+$updates = Get-WindowsUpdate -NotCategory "Drivers","FeaturePacks"
+#$updates = Get-WindowsUpdate -MicrosoftUpdate -Category "Security Updates" -AcceptAll
 # If there are updates available, install them
 if ($updates.Count -gt 0) {
     Install-WindowsUpdate -NotCategory "Drivers","FeaturePacks" -AcceptAll
