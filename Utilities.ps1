@@ -5,12 +5,11 @@ If (-Not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
     Break
 };
 # Check for available updates
-$updates = Get-WindowsUpdate -NotCategory "Drivers","FeaturePacks"
+$updates = Get-WindowsUpdate -NotCategory,"FeaturePacks"
 #$updates = Get-WindowsUpdate -MicrosoftUpdate -Category "Security Updates" -AcceptAll
 # If there are updates available, install them
 if ($updates.Count -gt 0) {
-    Install-WindowsUpdate -NotCategory "FeaturePacks" -AcceptAll
-	};
+        Install-WindowsUpdate -NotCategory "FeaturePacks" -IgnoreReboot | Out-File "c:\logs\$(get-date -f yyyy-MM-dd)-WindowsUpdate.log" -force};
 # Run DISM with /online /cleanup-image /restorehealth command
 $dismandargs = "/online /cleanup-image /restorehealth /NoRestart"
 Start-Process -WindowStyle Hidden -FilePath "C:\Windows\System32\dism.exe" -ArgumentList $dismandargs -Verb RunAs -Wait | Out-Null;
